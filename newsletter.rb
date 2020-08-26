@@ -1,16 +1,10 @@
-require 'pry'
-
-#########################
-# Data for the newsletter
-#########################
-require "pry"
-CAMPUS = {
+AMPUS = {
   "name": "DC",
   "address": "1440 G St NW, Washington, DC 20005",
 }
 DATE = "Nov 20, 2019"
 
-SUBSCRIBERS = ["rhona@grimes.info", "cedricschmidt@robel.io", "edmond@ko.org", "bryant@cummingsfisher.biz", "alverta@bernhard.name"]
+SUBSCRIBERS = ["rhona@grimes.info", "cedricschmidt@robel.io", "cedricschmidt@robel.io", "alverta@bernhard.name","edmond@ko.org", "bryant@cummingsfisher.biz", "alverta@bernhard.name"]
 UNSUBSCRIBED = ["cedricschmidt@robel.io", "alverta@bernhard.name"]
 
 ARTICLES = [
@@ -30,31 +24,45 @@ ARTICLES = [
 def calculate_recipients
   # Using the SUBSCRIBERS and UNSUBSCRIBED arrays,
   # write a method that will return an array of only the subscribers who haven't unsubscribed
+   return SUBSCRIBERS - UNSUBSCRIBED
 end
 
-def first_n_articles(number_of_articles
+def first_n_articles(number_of_articles)
   ARTICLES.first(number_of_articles)
 end
 
-def print_recipients
+def print_recipients(subscribers)
   # Write a method that uses the output of calculate_recipients
   # and returns a list of emails separated by commas
   # Ex) "abc@email.com, def@email.com, ghi@email.com"
+  string = calculate_recipients.to_s
+  puts string[1...-1]
+  #alternative code = calculate_recipients.join(",")
+
 end
 
 def print_one_article(article)
   # Write a method that will take an article hash
   # and print the title, author and text as a formatted string
   # See the README/sample output for examples
+  puts article[:title]
+  puts "\n"
+  puts "by: #{article[:author]}"
+  puts "\n"
+  puts article[:text]
+
 end
 
 def print_many_articles(articles)
   # Write a method that will take in an array of article hashes
   # and format each one using the print_one_article method
-end
+    articles.each do |article|
+      puts print_one_article(article) 
+    end
+  end
 
 def format_campus_location(campus)
-  "Flatiron #{campus["name"]}"
+  "Flatiron #{campus[:name]}"
 end
 
 def format_subject
@@ -72,7 +80,7 @@ def print_newsletter(number)
   format_subject
 
   print "RECIPIENTS: "
-  print_recipients
+  print_recipients(SUBSCRIBERS)
 
   puts "\nBODY:"
   format_subject
@@ -80,13 +88,13 @@ def print_newsletter(number)
   print_many_articles(articles)
   puts format_footer(CAMPUS)
 
-  end
 end
+
 
 def run
   # We want our program to print three articles by default,
   # but we can change that number here
-  print_newsletter("3")
+  print_newsletter(3)
 end
 
 # When we run "ruby newsletter.rb" in the command line,
